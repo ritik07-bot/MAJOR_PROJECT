@@ -15,10 +15,10 @@ const listingSchema = new Schema({
     url: {
         type: String,
         default:
-            "https://images.unsplash.com/photo-1782296862749-1e1b6ef35f0e?q=80&w=1035&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1000&auto=format&fit=crop",
         set: (v) =>
             v === ""
-                ? "https://images.unsplash.com/photo-1782296862749-1e1b6ef35f0e?q=80&w=1035&auto=format&fit=crop"
+                ? "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1000&auto=format&fit=crop"
                 : v,
     },
 },
