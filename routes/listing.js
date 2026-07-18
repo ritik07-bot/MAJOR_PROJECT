@@ -7,9 +7,15 @@ const { populate } = require("../models/review.js");
 
 const listingController = require("../controllers/listings.js");
 
+const multer = require("multer");
+const uploads = multer({dest:"uploads/"});
+
 router.route("/")
 .get(wrapAsync(listingController.index))
-.post(isLoggedIn,validateListing ,wrapAsync(listingController.createListing));
+// .post(isLoggedIn,validateListing ,wrapAsync(listingController.createListing));
+.post(upload.single('listing[image]'),(req,res)=>{
+  res.send(req.file);
+})
 
 router.get("/new",isLoggedIn,wrapAsync(listingController.renderNewForm));
 
