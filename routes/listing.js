@@ -4,18 +4,15 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const Listing=require("../models/listing.js");
 const { isLoggedIn,isOwner,validateListing } = require("../middleware.js");
 const { populate } = require("../models/review.js");
-
 const listingController = require("../controllers/listings.js");
-
 const multer = require("multer");
-const uploads = multer({dest:"uploads/"});
+const{storage}=require("../cloudConfig.js");
+const uploads = multer({storage});
 
 router.route("/")
 .get(wrapAsync(listingController.index))
-// .post(isLoggedIn,validateListing ,wrapAsync(listingController.createListing));
-.post(upload.single('listing[image]'),(req,res)=>{
-  res.send(req.file);
-})
+.post(isLoggedIn,uploads.single("listing[image]"),validateListing,wrapAsync(listingController.createListing));
+;
 
 router.get("/new",isLoggedIn,wrapAsync(listingController.renderNewForm));
 
@@ -23,6 +20,7 @@ router.route("/:id")
 .get(wrapAsync(listingController.showListing))
 .put(
   isLoggedIn,isOwner,
+  uploads.single("listing[image]"),
   validateListing,
   wrapAsync(listingController.updateListing)
 )
