@@ -53,10 +53,10 @@ const sessionOptions = {
         httpOnly:true,
     }
 };
-app.get("/",(req,res)=>{
-    console.log(req.cookies);
-    res.send("Hi,i am root");
-});
+// app.get("/",(req,res)=>{
+//     console.log(req.cookies);
+//     res.send("Hi,i am root");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash());
